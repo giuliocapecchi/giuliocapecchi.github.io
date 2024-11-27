@@ -3,8 +3,8 @@
 Code for my personal githubpage, featuring some [Three.js](https://threejs.org/ "Three.js") custom-made scenes.
 
 <p align="center">
-    <img src="readme_assets/neurons.gif" alt="Neurons" height="300" style="border-radius: 10px;">
-    <img src="readme_assets/aboutme.png" alt="aboutme" height="300" style="border-radius: 10px; margin-right: 10px;">  
+    <img src="readme_assets/neurons.gif" alt="Neurons" height="350" style="border-radius: 10px;">
+    <img src="readme_assets/aboutme.png" alt="aboutme" height="350" style="border-radius: 10px; margin-right: 10px;">  
 </p>
 
 ## Features
@@ -22,8 +22,8 @@ Code for my personal githubpage, featuring some [Three.js](https://threejs.org/ 
 - [Tailwind CSS](https://tailwindcss.com/)
 
 <p align="center">
-    <img src="readme_assets/portfolio.png" alt="portfolio" height="300" style="border-radius: 10px; margin-right: 10px;">
-    <img src="readme_assets/blizzard.gif" alt="Blizzard" height="300" style="border-radius: 10px;">
+    <img src="readme_assets/portfolio.png" alt="portfolio" height="350" style="border-radius: 10px; margin-right: 10px;">
+    <img src="readme_assets/blizzard.gif" alt="Blizzard" height="350" style="border-radius: 10px;">
 </p>
 
 
