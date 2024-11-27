@@ -2,10 +2,10 @@
 
 Code for my personal githubpage, featuring some [Three.js](https://threejs.org/ "Three.js") custom-made scenes.
 
-<div style="display: flex; align-items: center; justify-content: center;">
-    <img src="./readme_assets/neurons.gif" alt="Neurons" style="height: 200px; margin-right: 10px; border-radius: 10px;">
-    <img src="./readme_assets/aboutme.png" alt="aboutme" style="height: 200px; border-radius: 10px;">
-</div>
+<p align="center">
+    <img src="readme_assets/neurons.gif" alt="Neurons" height="200" style="border-radius: 10px;">
+    <img src="readme_assets/aboutme.png" alt="aboutme" height="200" style="border-radius: 10px; margin-right: 10px;">  
+</p>
 
 ## Features
 
@@ -21,9 +21,11 @@ Code for my personal githubpage, featuring some [Three.js](https://threejs.org/ 
 - [Three.js](https://threejs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 
-<div style="display: flex; align-items: center; justify-content: center;">
-    <img src="readme_assets/portfolio.png" alt="portfolio" style="height: 200px; border-radius: 10px;  margin-right: 10px;">
-    <img src="./readme_assets/blizzard.gif" alt="Blizzard" style="height: 200px; border-radius: 10px;">
+<p align="center">
+    <img src="readme_assets/portfolio.png" alt="portfolio" height="200" style="border-radius: 10px; margin-right: 10px;">
+    <img src="readme_assets/blizzard.gif" alt="Blizzard" height="200" style="border-radius: 10px;">
+</p>
+
 
 </div>
 
