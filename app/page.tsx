@@ -17,7 +17,9 @@ const Home: React.FC = () => {
     const [projects, setProjects] = useState([]);
     const [showPortfolio, setShowPortfolio] = useState(false);
     const [velocity, setVelocity] = useState(0.3);
-    const [backgroundChoice, setBackgroundChoice] = useState("Neurons"); // choose the default background
+    const [backgroundChoice, setBackgroundChoice] = useState( // random choice of starting background
+        Math.random() > 0.5 ? "Blizzard" : "Neurons"
+    ); 
 
     useEffect(() => {
         document.title = metadata.title;
