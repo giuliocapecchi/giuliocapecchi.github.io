@@ -72,7 +72,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Main Content */}
-            <div className={`relative z-10 flex flex-col ${isMobile ? 'justify-start p-3 mt-3' : 'justify-center items-center p-5'} w-full h-full`}>
+            <div className={`relative z-10 flex flex-col ${isMobile ? 'justify-start p-3 mt-5' : 'justify-center items-center p-5'} w-full h-full`}>
                 <div className="flex flex-col md:flex-row justify-center gap-10 w-full max-w-7xl">
                     {/* Left Section */}
                     <div
