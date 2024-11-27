@@ -1,6 +1,6 @@
 # Personal Page
 
-Code for my personal githubpage, featuring some [Three.js](https://threejs.org/ "Three.js") custom-made scenes.
+Code for my githubpage, featuring some [Three.js](https://threejs.org/ "Three.js") custom-made scenes.
 
 <p align="center">
     <img src="readme_assets/neurons.gif" alt="Neurons" height="350" style="border-radius: 10px;">
