@@ -67,7 +67,7 @@ const LeftSection: React.FC<LeftSectionProps> = ({ backgroundChoice }) => {
           </li>
           <li className="mb-2 inline-block">
             <a
-              href="https://x.com/giuliocapecchi_"
+              href="https://x.com/giulio_capecchi"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white no-underline text-lg transition-colors duration-300 hover:text-blue-400"
