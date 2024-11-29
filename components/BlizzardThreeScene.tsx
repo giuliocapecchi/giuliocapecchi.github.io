@@ -83,14 +83,14 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
                     }
 
                     // Random sin for x, cos for y movement
-                    if (Math.random() > 0.5) {
-                        positions[i * 3] += randomMovementVelocity * Math.sin(positions[i * 3 + 2] * 0.1);
-                        positions[i * 3 + 1] += randomMovementVelocity * Math.cos(positions[i * 3 + 2] * 0.1);
-                    }
-
+                    const randomFactor = randomMovementVelocity * 0.5;
+                    positions[i * 3] += randomFactor * (Math.random() - 0.5);
+                    positions[i * 3 + 1] += randomFactor * (Math.random() - 0.5);
+            
                     // Reset particles position if they are too far
                     if (positions[i * 3 + 2] > farthestDistance) {
                         positions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+                        positions[i * 3] = (Math.random() - 0.5) * 100;
                         positions[i * 3 + 2] = resetDistance;
                     }
                 }
