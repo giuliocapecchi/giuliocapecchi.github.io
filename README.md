@@ -3,7 +3,7 @@
 Code for my githubp.io age, featuring some [Three.js](https://threejs.org/ "Three.js") custom-made scenes.
 
 <p align="center">
-    <img src="readme_assets/neurons.gif" alt="Neurons" height="350" style="border-radius: 10px;">
+    <img src="readme_assets/neurons.gif" alt="Neurons" height="350">
     <img src="readme_assets/aboutme.png" alt="aboutme" height="350" style="border-radius: 10px; margin-right: 10px;">  
 </p>
 
@@ -23,7 +23,7 @@ Code for my githubp.io age, featuring some [Three.js](https://threejs.org/ "Thre
 
 <p align="center">
     <img src="readme_assets/portfolio.png" alt="portfolio" height="350" style="border-radius: 10px; margin-right: 10px;">
-    <img src="readme_assets/blizzard.gif" alt="Blizzard" height="350" style="border-radius: 10px;">
+    <img src="readme_assets/blizzard.gif" alt="Blizzard" height="350">
 </p>
 
 
