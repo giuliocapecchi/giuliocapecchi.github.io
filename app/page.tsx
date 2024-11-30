@@ -9,6 +9,7 @@ import BackgroundControls from "@/components/BackgroundControls";
 import Loading from "../components/Loading";
 import { metadata } from "./metadata";
 import { isMobile } from 'react-device-detect';
+import Terrain from "@/components/FieldThreeScene";
 
 const Home: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ const Home: React.FC = () => {
     const [showPortfolio, setShowPortfolio] = useState(false);
     const [velocity, setVelocity] = useState(0.3);
     const [backgroundChoice, setBackgroundChoice] = useState( // random choice of starting background
-        Math.random() > 0.5 ? "Blizzard" : "Neurons"
+        ["Blizzard", "Neurons", "Terrain"][Math.floor(Math.random() * 3)]
     ); 
 
     useEffect(() => {
@@ -66,8 +67,10 @@ const Home: React.FC = () => {
             <div className="three-scene-container h-screen w-full">
                 {backgroundChoice === "Blizzard" ? (
                     <BlizzardThreeScene velocity={velocity} />
-                ) : (
+                ) : backgroundChoice === "Neurons" ? (
                     <NNThreeScene velocity={velocity} />
+                ) : (
+                <Terrain velocity={velocity} />
                 )}
             </div>
 
@@ -85,7 +88,7 @@ const Home: React.FC = () => {
                     <div
                         className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} flex-1 ${showPortfolio ? 'block' : 'hidden'} md:block sm:w-full md:w-1/2`}
                     >
-                        <Portfolio projects={projects}  />
+                        <Portfolio projects={projects} backgroundChoice={backgroundChoice}  />
                     </div>
                 </div>
 

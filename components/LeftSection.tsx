@@ -17,8 +17,7 @@ const LeftSection: React.FC<LeftSectionProps> = ({ backgroundChoice }) => {
     return () => clearTimeout(timeout);
   }, []);
 
-  // calcola l'opacità in base alla scelta del background
-  const opacity = backgroundChoice === "Neurons" ? 0.4 : backgroundChoice === "Blizzard" ? 0.3 : 0.2;
+  const opacity = backgroundChoice === "Neurons" ? 0.4 : backgroundChoice === "Blizzard" ? 0.3 : backgroundChoice === "Field" ? 0.5 : 0.2;
 
   return (
     <div
@@ -26,7 +25,7 @@ const LeftSection: React.FC<LeftSectionProps> = ({ backgroundChoice }) => {
         fadeIn ? 'opacity-100' : 'opacity-0'
       } flex flex-col text-center text-white items-center justify-center p-8 rounded-lg shadow-lg max-w-4xl mx-auto h-full`}
       style={{
-        backgroundColor: `rgba(31, 41, 55, ${opacity})`, // Imposta bg-opacity dinamicamente
+        backgroundColor: `rgba(31, 41, 55, ${opacity})`,
       }}
     >
       <div className="profile-photo-container w-36 h-36 mb-5 overflow-hidden flex justify-center items-center">
