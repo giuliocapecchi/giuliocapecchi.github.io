@@ -67,21 +67,21 @@ const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
     terrainMesh.position.set(0, 0, size); // correct positioning along Z
     scene.add(terrainMesh);
 
-    // Creazione del terreno speculare
+    // Creating the mirrored terrain
     const mirroredTerrainMesh = terrainMesh.clone();
     mirroredTerrainMesh.scale.y = -1;
     mirroredTerrainMesh.position.y = size;
     mirroredTerrainMesh.position.set(0, 0, 0); // "size" behind the first terrain
     scene.add(mirroredTerrainMesh);
 
-    // Creazione del terreno speculare
+    // Creating the vertical terrain
     const verticalTerrainMesh = terrainMesh.clone();
     verticalTerrainMesh.scale.z = -1;
     verticalTerrainMesh.position.y = size;
-    verticalTerrainMesh.position.set(0, 0, 0); // "size" behind the first terrain
+    verticalTerrainMesh.position.set(0, 0, 0);
     scene.add(verticalTerrainMesh);
 
-    // Creazione del terreno speculare
+    // Creating the vertical mirrored terrain
     const verticalMirroredTerrainMesh = verticalTerrainMesh.clone();
     verticalMirroredTerrainMesh.scale.y = -1;
     verticalMirroredTerrainMesh.position.y = size;
