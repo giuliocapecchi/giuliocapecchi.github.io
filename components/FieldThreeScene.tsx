@@ -69,12 +69,24 @@ const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
 
     // Creazione del terreno speculare
     const mirroredTerrainMesh = terrainMesh.clone();
-    // esegui il flip del terreno speculare
     mirroredTerrainMesh.scale.y = -1;
-    // cambia il colore del terreno speculare
     mirroredTerrainMesh.position.y = size;
     mirroredTerrainMesh.position.set(0, 0, 0); // "size" behind the first terrain
     scene.add(mirroredTerrainMesh);
+
+    // Creazione del terreno speculare
+    const verticalTerrainMesh = terrainMesh.clone();
+    verticalTerrainMesh.scale.z = -1;
+    verticalTerrainMesh.position.y = size;
+    verticalTerrainMesh.position.set(0, 0, 0); // "size" behind the first terrain
+    scene.add(verticalTerrainMesh);
+
+    // Creazione del terreno speculare
+    const verticalMirroredTerrainMesh = verticalTerrainMesh.clone();
+    verticalMirroredTerrainMesh.scale.y = -1;
+    verticalMirroredTerrainMesh.position.y = size;
+    verticalMirroredTerrainMesh.position.set(0, 0, size); // "size" behind the first terrain
+    scene.add(verticalMirroredTerrainMesh);
 
     const light = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(light);
@@ -86,6 +98,8 @@ const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
     const animate = () => {
       terrainMesh.position.z += velocityRef.current * 4;
       mirroredTerrainMesh.position.z += velocityRef.current * 4;
+      verticalTerrainMesh.position.z += velocityRef.current * 4;
+      verticalMirroredTerrainMesh.position.z += velocityRef.current * 4;
     
       if (terrainMesh.position.z > size) {
         terrainMesh.position.z = -size;
@@ -105,6 +119,30 @@ const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
           color = 0x8264c0;
         }
         mirroredTerrainMesh.material = new THREE.MeshBasicMaterial({
+          color: color,
+          wireframe: true,
+        });
+      }
+
+      if (verticalTerrainMesh.position.z > size) {
+        verticalTerrainMesh.position.z = -size;
+        color -= 0x100000;
+        if (color < 0x0F0000) {
+          color = 0x8264c0;
+        }
+        verticalTerrainMesh.material = new THREE.MeshBasicMaterial({
+          color: color,
+          wireframe: true,
+        });
+      }
+
+      if (verticalMirroredTerrainMesh.position.z > size) {
+        verticalMirroredTerrainMesh.position.z = -size;
+        color -= 0x100000;
+        if (color < 0x0F0000) {
+          color = 0x8264c0;
+        }
+        verticalMirroredTerrainMesh.material = new THREE.MeshBasicMaterial({
           color: color,
           wireframe: true,
         });
