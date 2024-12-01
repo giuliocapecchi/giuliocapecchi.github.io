@@ -17,7 +17,7 @@ const LeftSection: React.FC<LeftSectionProps> = ({ backgroundChoice }) => {
     return () => clearTimeout(timeout);
   }, []);
 
-  const opacity = backgroundChoice === "Neurons" ? 0.4 : backgroundChoice === "Blizzard" ? 0.3 : backgroundChoice === "Field" ? 0.5 : 0.2;
+  const opacity = backgroundChoice === "Neurons" ? 0.4 : backgroundChoice === "Blizzard" ? 0.3 : backgroundChoice === "Field" ? 0.55 : 0.2;
 
   return (
     <div
