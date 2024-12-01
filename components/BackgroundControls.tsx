@@ -90,7 +90,7 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = ({ velocity, onVel
                     >
                         <option value="Neurons">Neurons</option>
                         <option value="Blizzard">Blizzard</option>
-                        <option value="Field">Field</option>
+                        <option value="Lair">Lair</option>
                     </select>
                 </div>
 

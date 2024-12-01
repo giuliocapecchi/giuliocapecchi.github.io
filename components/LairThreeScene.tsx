@@ -6,7 +6,7 @@ import { Terrain as ThreeTerrain } from '../lib/three-terrain/build/THREE.Terrai
 import { isMobile } from 'react-device-detect';
 import { ThreeSceneProp } from '@/types/interfaces';
 
-const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
+const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const velocityRef = useRef(velocity); 
   const [opacity, setOpacity] = useState(0);
@@ -186,4 +186,4 @@ const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
   );
 };
 
-export default Terrain;
+export default Lair;

@@ -9,7 +9,7 @@ import BackgroundControls from "@/components/BackgroundControls";
 import Loading from "../components/Loading";
 import { metadata } from "./metadata";
 import { isMobile } from 'react-device-detect';
-import Terrain from "@/components/FieldThreeScene";
+import Lair from "@/components/LairThreeScene";
 
 const Home: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ const Home: React.FC = () => {
     const [showPortfolio, setShowPortfolio] = useState(false);
     const [velocity, setVelocity] = useState(0.3);
     const [backgroundChoice, setBackgroundChoice] = useState( // random choice of starting background
-        ["Blizzard", "Neurons", "Terrain"][Math.floor(Math.random() * 3)]
+        ["Blizzard", "Neurons", "Lair"][Math.floor(Math.random() * 3)]
     ); 
 
     useEffect(() => {
@@ -70,7 +70,7 @@ const Home: React.FC = () => {
                 ) : backgroundChoice === "Neurons" ? (
                     <NNThreeScene velocity={velocity} />
                 ) : (
-                <Terrain velocity={velocity} />
+                <Lair velocity={velocity} />
                 )}
             </div>
 

@@ -46,7 +46,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, backgroundChoice }) => 
     const currentPage = Math.floor(currentIndex / itemsPerPage) + 1;
     const totalPages = Math.ceil(projects.length / itemsPerPage);
 
-    const opacity = backgroundChoice === "Neurons" ? 0.4 : backgroundChoice === "Blizzard" ? 0.3 : backgroundChoice === "Field" ? 0.3 : 0.2;
+    const opacity = backgroundChoice === "Neurons" ? 0.4 : backgroundChoice === "Blizzard" ? 0.3 : backgroundChoice === "Lair" ? 0.3 : 0.2;
 
     return (
         <div
