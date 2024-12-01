@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import debounce from 'lodash/debounce';
 
 interface BackgroundControlsProps {
@@ -23,23 +23,27 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = ({ velocity, onVel
         setSliderValue(velocity);
     }, [velocity]);
 
-    const debouncedVelocityChange = useCallback(
-        debounce((value: number) => {
-            onVelocityChange(value);
-        }, 100), // Debounce di 100ms
+    const debouncedVelocityChange = useMemo(
+        () => debounce((value: number) => onVelocityChange(value), 100),
         [onVelocityChange]
     );
 
+    useEffect(() => {
+        return () => {
+            debouncedVelocityChange.cancel();
+        };
+    }, [debouncedVelocityChange]);
+
     const handleSliderInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseFloat(event.target.value);
-        setSliderValue(value); // Aggiorna lo stato locale per l'animazione dello slider
-        debouncedVelocityChange(value); // Aggiorna il valore di velocity con debounce
+        setSliderValue(value);
+        debouncedVelocityChange(value);
     };
 
     const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         setOption(value);
-        onBackgroundChoiceChange(value); // Aggiorna la scelta del background
+        onBackgroundChoiceChange(value);
     };
 
     const toggleControls = () => {
@@ -48,12 +52,10 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = ({ velocity, onVel
 
     return (
         <div className={`flex flex-col items-left gap-3 rounded-xl shadow-xl z-10 transition-opacity duration-500 p-2 ${fadeIn ? 'opacity-100' : 'opacity-0'} ${showControls ? 'bg-gray-900/50' : 'bg-opacity-100'}`}>
-            {/* Bottone per mostrare/nascondere i controlli */}
             <div
                 onClick={toggleControls}
                 className="flex items-center cursor-pointer"
             >
-                {/* Arrow */}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className={`w-5 h-5 transform transition-transform duration-300 ease-in-out ${showControls ? 'rotate-180' : ''} text-white`}
@@ -74,14 +76,11 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = ({ velocity, onVel
                 </span>
             </div>
 
-            {/* Bottom line */}
             <div className="h-0.5 w-full bg-gray-300 mt-0 mb-0" />
 
-            {/* Controls container*/}
             <div
                 className={`transition-all duration-500 ease-in-out ${showControls ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}
             >
-                {/* Contenitore per il select */}
                 <div className="flex-1 mt-4">
                     <select
                         id="options"
@@ -95,7 +94,6 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = ({ velocity, onVel
                     </select>
                 </div>
 
-                {/* Slder container */}
                 <div className="flex-1 mt-4">
                     <label htmlFor="velocity" className="block text-xs text-white mb-1">
                         Velocity: {sliderValue.toFixed(1)}
