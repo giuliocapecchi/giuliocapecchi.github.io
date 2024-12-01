@@ -14,7 +14,7 @@ const NNThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
 
 
   useEffect(() => {
-    velocityRef.current = velocity * 10 ; // update il valore di velocityRef ogni volta che la prop cambia
+    velocityRef.current = velocity * (isMobile ? 5 : 8) ; // update il valore di velocityRef ogni volta che la prop cambia
   }, [velocity]);
 
   useEffect(() => {
