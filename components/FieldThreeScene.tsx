@@ -21,7 +21,8 @@ const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
     // Scene setup
     const scene = new THREE.Scene();
     const fow = isMobile ? 100 : 50;
-    const camera = new THREE.PerspectiveCamera(fow, window.innerWidth / window.innerHeight, 0.1, 750);
+    const maxDistance = isMobile ? 500 : 750;
+    const camera = new THREE.PerspectiveCamera(fow, window.innerWidth / window.innerHeight, 0.1, maxDistance);
     
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -32,8 +33,8 @@ const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
     }
     
     // Common parameters
-    const size = 1000;
-    const xS = 100, yS = 100;
+    const size = isMobile ? 500 : 1000;
+    const xS = size/10, yS = size/10;
     camera.position.z = size / 2;    
     camera.rotation.x = -0.1; // incline the camera slightly
 
@@ -62,7 +63,6 @@ const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
       wireframe: true,
     });
 
-    console.log(terrainMesh.geometry.attributes.position);
     terrainMesh.rotation.set(-Math.PI / 2, 0, 0); // X-axis rotation
     terrainMesh.position.set(0, 0, size); // correct positioning along Z
     scene.add(terrainMesh);
@@ -84,8 +84,8 @@ const Terrain: React.FC<ThreeSceneProp> = ({ velocity }) => {
     scene.add(directionalLight);
 
     const animate = () => {
-      terrainMesh.position.z += velocityRef.current + 2;
-      mirroredTerrainMesh.position.z += velocityRef.current + 2;
+      terrainMesh.position.z += velocityRef.current * 4;
+      mirroredTerrainMesh.position.z += velocityRef.current * 4;
     
       if (terrainMesh.position.z > size) {
         terrainMesh.position.z = -size;
