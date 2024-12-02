@@ -112,6 +112,11 @@ const Home: React.FC = () => {
                     {showPortfolio ? 'About me' : 'Portfolio'}
                 </button>
             </div>
+            {/* Page View Counter */}
+            <div className={`fixed ${isMobile ? 'hidden' : ''} bottom-4 right-4 z-10`}>
+                <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fgiuliocapecchi.github.io&count_bg=%23B5E0FC&title_bg=%238387E7&icon=github.svg&icon_color=%23D2D2D2&title=views&edge_flat=false" alt="Page views" className={`${isMobile ? 'w-full' : ''}`} />
+
+            </div>
         </div>
     );
 };
