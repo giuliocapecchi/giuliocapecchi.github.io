@@ -25,6 +25,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, backgroundChoice }) => 
     const filteredProjects = projects.filter((project) => project.name !== 'giuliocapecchi');
     projects = filteredProjects;
 
+    // sort projects by created_at date in descending order
+    projects.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
     // calculate the current projects to display
     const currentProjects = projects.slice(
         currentIndex,
@@ -51,7 +54,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, backgroundChoice }) => 
     return (
         <div
             className={`portfolio transition-opacity duration-500 ${fadeIn ? "opacity-100" : "opacity-0"
-            } text-white text-center p-3  rounded-lg shadow-lg max-w-4xl mx-auto ${isMobile ? 'h-[440px]' : 'h-[500px]'} relative flex flex-col items-center pt-16`}
+            } text-white text-center p-3  rounded-lg shadow-lg max-w-4xl mx-auto ${isMobile ? 'h-[480px]' : 'h-[500px]'} relative flex flex-col items-center pt-16`}
             style={{
             backgroundColor: `rgba(75, 85, 99, ${opacity})`,
             }}
