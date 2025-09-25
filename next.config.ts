@@ -4,11 +4,15 @@ if (isGithubActions && process.env.GITHUB_REPOSITORY === 'giuliocapecchi.github.
   repo = ''; 
 }
 
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: 'export',
   reactStrictMode: true,
+  outputFileTracingRoot: __dirname,
   images: {
     unoptimized: true,
     path: isGithubActions && repo === '' ? '/_next/image' : `${repo}/_next/image`, 
   },
 };
+
+module.exports = nextConfig;
