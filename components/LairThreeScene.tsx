@@ -55,11 +55,13 @@ const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
 
     const terrainMesh = terrain.getScene().children[0] as THREE.Mesh;
 
-    let color = 0x6e57d2;
+    //  color palette to cycle through
+    const colorsArray = [0x6e57d2, 0x5a4bb8, 0x463f9e, 0x323384, 0x1e276a, 0x0a1b50, 0x4e2d95,];
+    let colorIndex = 0;
     
     // wireframe material
     terrainMesh.material = new THREE.MeshBasicMaterial({
-      color: color,
+      color: colorsArray[colorIndex],
       wireframe: true,
     });
 
@@ -103,47 +105,35 @@ const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
     
       if (terrainMesh.position.z > size) {
         terrainMesh.position.z = -size;
-        color -= 0x100000;
-        if (color < 0x0F0000) {
-          color = 0x8264c0;
-        }
+        colorIndex = (colorIndex + 1) % colorsArray.length;
         terrainMesh.material = new THREE.MeshBasicMaterial({
-          color: color,
+          color: colorsArray[colorIndex],
           wireframe: true,
         });
       }
       if (mirroredTerrainMesh.position.z > size) {
         mirroredTerrainMesh.position.z = -size;
-        color -= 0x100000;
-        if (color < 0x0F0000) {
-          color = 0x8264c0;
-        }
+        colorIndex = (colorIndex + 1) % colorsArray.length;
         mirroredTerrainMesh.material = new THREE.MeshBasicMaterial({
-          color: color,
+          color: colorsArray[colorIndex],
           wireframe: true,
         });
       }
 
       if (verticalTerrainMesh.position.z > size) {
         verticalTerrainMesh.position.z = -size;
-        color -= 0x100000;
-        if (color < 0x0F0000) {
-          color = 0x8264c0;
-        }
+        colorIndex = (colorIndex + 1) % colorsArray.length;
         verticalTerrainMesh.material = new THREE.MeshBasicMaterial({
-          color: color,
+          color: colorsArray[colorIndex],
           wireframe: true,
         });
       }
 
       if (verticalMirroredTerrainMesh.position.z > size) {
         verticalMirroredTerrainMesh.position.z = -size;
-        color -= 0x100000;
-        if (color < 0x0F0000) {
-          color = 0x8264c0;
-        }
+        colorIndex = (colorIndex + 1) % colorsArray.length;
         verticalMirroredTerrainMesh.material = new THREE.MeshBasicMaterial({
-          color: color,
+          color: colorsArray[colorIndex],
           wireframe: true,
         });
       }
