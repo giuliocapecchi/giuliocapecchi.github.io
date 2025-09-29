@@ -6,12 +6,11 @@ import { faGithubSquare } from "@fortawesome/free-brands-svg-icons";
 
 interface PortfolioProps {
     projects: Project[],
-    backgroundChoice: string;
     isMobileState?: boolean;
 }
 
 
-const Portfolio: React.FC<PortfolioProps> = ({ projects, backgroundChoice, isMobileState = false }) => {
+const Portfolio: React.FC<PortfolioProps> = ({ projects, isMobileState = false }) => {
     const [fadeIn, setFadeIn] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -58,8 +57,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, backgroundChoice, isMob
 
     const currentPage = Math.floor(currentIndex / itemsPerPage) + 1;
     const totalPages = Math.ceil(sortedProjects.length / itemsPerPage);
-
-    const opacity = backgroundChoice === "Neurons" ? 0.4 : backgroundChoice === "Blizzard" ? 0.3 : backgroundChoice === "Lair" ? 0.3 : 0.2;
 
     return (
         <div

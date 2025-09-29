@@ -91,7 +91,7 @@ const Home: React.FC = () => {
                         {/* top reflection */}
                         <div className="absolute inset-[1px] bg-gradient-to-b from-white/10 via-transparent to-transparent rounded-[calc(1.5rem-1px)] pointer-events-none opacity-30"></div>
                         <div className="relative z-10">
-                            <Portfolio projects={projects} backgroundChoice={backgroundChoice} isMobileState={isMobileState} />
+                            <Portfolio projects={projects} isMobileState={isMobileState} />
                         </div>
                     </div>
                 </div>

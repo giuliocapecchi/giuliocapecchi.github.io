@@ -4,10 +4,7 @@ import { faGithub, faLinkedin, faXTwitter, faInstagram } from '@fortawesome/free
 import { faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 
-interface LeftSectionProps {
-}
-
-const LeftSection: React.FC<LeftSectionProps> = () => {
+const LeftSection: React.FC = () => {
   const [fadeIn, setFadeIn] = useState(true);
 
   useEffect(() => {
