@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import CustomSelect from './CustomSelect';
 import debounce from 'lodash/debounce';
 
 interface BackgroundControlsProps {
@@ -40,11 +41,6 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = ({ velocity, onVel
         debouncedVelocityChange(value);
     };
 
-    const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = event.target.value;
-        setOption(value);
-        onBackgroundChoiceChange(value);
-    };
 
     const toggleControls = () => {
         setShowControls((prev) => !prev);
@@ -82,16 +78,12 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = ({ velocity, onVel
                 className={`transition-all duration-500 ease-in-out ${showControls ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}
             >
                 <div className="flex-1 mt-4">
-                    <select
+                    <CustomSelect
                         id="options"
+                        options={[{ value: 'Neurons' }, { value: 'Blizzard' }, { value: 'Lair' }]}
                         value={option}
-                        onChange={handleOptionChange}
-                        className="text-xs sm:text-sm px-4 py-2 w-28 sm:w-32 h-10 bg-white border border-gray-300/40 rounded-xl text-gray-700 cursor-pointer shadow-md transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-blue-500 hover:ring-2 hover:ring-blue-300 focus:ring-opacity-75 truncate"
-                    >
-                        <option value="Neurons">Neurons</option>
-                        <option value="Blizzard">Blizzard</option>
-                        <option value="Lair">Lair</option>
-                    </select>
+                        onChange={(v) => { setOption(v); onBackgroundChoiceChange(v); }}
+                    />
                 </div>
 
                 <div className="flex-1 mt-4">

@@ -110,8 +110,10 @@ const Home: React.FC = () => {
 
                 {/* Toggle Button for Mobile */}
                 <button
-                    className="block md:hidden fixed bottom-5 right-5 bg-blue-500/50 text-white p-2 rounded z-20"
+                    className="block md:hidden fixed bottom-5 right-5 z-20 glass-button"
                     onClick={() => setShowPortfolio(!showPortfolio)}
+                    aria-pressed={showPortfolio}
+                    aria-label={showPortfolio ? 'Show about' : 'Show portfolio'}
                 >
                     {showPortfolio ? 'About me' : 'Portfolio'}
                 </button>

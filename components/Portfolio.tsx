@@ -61,7 +61,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isMobileState = false }
     return (
         <div
             className={`portfolio transition-opacity duration-500 ${fadeIn ? "opacity-100" : "opacity-0"
-            } text-white text-center p-3 rounded-lg max-w-4xl mx-auto ${isMobileState ? 'h-[480px]' : 'h-[500px]'} relative flex flex-col items-center pt-16`}
+            } text-white text-center p-3 rounded-lg max-w-4xl mx-auto ${isMobileState ? 'h-[520px]' : 'h-[560px]'} pb-16 relative flex flex-col items-center pt-16`}
             style={{
             backgroundColor: `transparent`,
             }}
