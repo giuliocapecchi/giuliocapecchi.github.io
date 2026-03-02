@@ -11,7 +11,7 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
     const mountRef = useRef<HTMLDivElement | null>(null);
     const velocityRef = useRef(velocity); 
     const [opacity, setOpacity] = useState(0);
-
+    const [webGLUnsupported, setWebGLUnsupported] = useState(false);
 
     useEffect(() => {
         velocityRef.current = velocity; 
@@ -19,7 +19,9 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
 
     useEffect(() => {
         const currentMount = mountRef.current;
+        if (!currentMount) return;
 
+        try {
         // Scene setup
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -128,7 +130,39 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
             renderer.dispose();
             controls.dispose();
         };
+        } catch {
+            setWebGLUnsupported(true);
+        }
     }, []);
+
+    if (webGLUnsupported) {
+        return (
+            <div
+                style={{
+                    width: '100%',
+                    height: '100vh',
+                    background: 'linear-gradient(180deg, #011627 0%, #018ae6 100%)',
+                }}
+            >
+                <p
+                    style={{
+                        position: 'fixed',
+                        top: '1rem',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 15,
+                        color: 'rgba(255,255,255,0.85)',
+                        fontSize: '0.9rem',
+                        maxWidth: '320px',
+                        textAlign: 'center',
+                        margin: 0,
+                    }}
+                >
+                    Animations disabled — hardware acceleration (WebGL) is unavailable in your browser.
+                </p>
+            </div>
+        );
+    }
 
     return (
         <div
