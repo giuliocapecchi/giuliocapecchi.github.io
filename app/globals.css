@@ -152,12 +152,12 @@ body {
     position: absolute;
     left: 0;
     min-width: 10rem;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(17, 24, 39, 0.9);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 0.75rem;
-    box-shadow: 0 12px 36px rgba(2,6,23,0.7);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.7);
     overflow: hidden;
   }
 

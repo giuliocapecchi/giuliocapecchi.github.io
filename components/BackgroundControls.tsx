@@ -47,7 +47,7 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = ({ velocity, onVel
     };
 
     return (
-        <div className={`flex flex-col items-left gap-3 rounded-xl shadow-xl z-10 transition-opacity duration-500 p-2 ${fadeIn ? 'opacity-100' : 'opacity-0'} ${showControls ? 'bg-gray-900/50' : 'bg-opacity-100'}`}>
+        <div className={`flex flex-col items-left gap-3 rounded-xl shadow-xl z-10 transition-opacity duration-500 p-2 ${fadeIn ? 'opacity-100' : 'opacity-0'} ${showControls ? 'bg-gray-900/75' : 'bg-opacity-100'}`}>
             <div
                 onClick={toggleControls}
                 className="flex items-center cursor-pointer"
