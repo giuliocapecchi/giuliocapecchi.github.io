@@ -67,11 +67,11 @@ const Home: React.FC = () => {
             </div>
 
             {/* Main Content */}
-            <div className={`relative z-10 flex flex-col ${isMobileState ? 'justify-start p-3 mt-9' : 'justify-center items-center p-3'} w-full h-full`}>
-                <div className="flex flex-col md:flex-row justify-center gap-10 w-full max-w-7xl">
+            <div className={`relative z-10 flex flex-col justify-center items-center p-3 w-full h-full ${isMobileState ? 'pt-12' : ''}`}>
+                <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 w-full max-w-7xl max-h-[calc(100vh-2rem)]">
                     {/* Left Section */}
                     <div
-                        className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} flex-1 ${showPortfolio ? 'hidden' : 'block'} sm:w-full md:w-1/2 bg-white/[0.02] backdrop-blur-md border border-white/15 shadow-sm rounded-3xl glassmorphism-panel relative overflow-hidden ${isMobileState ? 'mt-20' : ''}`}
+                        className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} flex-1 ${showPortfolio ? 'hidden' : 'block'} sm:w-full md:w-1/2 bg-white/[0.02] backdrop-blur-md border border-white/15 shadow-sm rounded-3xl glassmorphism-panel relative overflow-y-auto`}
                     >
                         {/* glass effect */}
                         <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/[0.01] rounded-3xl pointer-events-none"></div>
@@ -84,7 +84,7 @@ const Home: React.FC = () => {
 
                     {/* Portfolio Section - Visibility based on showPortfolio */}
                     <div
-                        className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} flex-1 ${showPortfolio ? 'block' : 'hidden'} md:block sm:w-full md:w-1/2 bg-white/[0.02] backdrop-blur-md border border-white/15 shadow-sm rounded-3xl glassmorphism-panel relative overflow-hidden ${isMobileState ? 'mt-20' : ''}`}
+                        className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} flex-1 ${showPortfolio ? 'block' : 'hidden'} md:block sm:w-full md:w-1/2 bg-white/[0.02] backdrop-blur-md border border-white/15 shadow-sm rounded-3xl glassmorphism-panel relative overflow-y-auto`}
                     >
                         {/* glass effect */}
                         <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/[0.01] rounded-3xl pointer-events-none"></div>
@@ -98,7 +98,7 @@ const Home: React.FC = () => {
 
                 {/* Background Controls */}
                 <div
-                    className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} fixed bottom-1 left-3 z-20`}
+                    className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} fixed bottom-5 left-4 z-20`}
                 >
                     <BackgroundControls
                         velocity={velocity}

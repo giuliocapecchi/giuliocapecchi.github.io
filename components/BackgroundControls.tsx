@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import CustomSelect from './CustomSelect';
 import debounce from 'lodash/debounce';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSliders, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface BackgroundControlsProps {
     velocity: number;
@@ -47,59 +49,53 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = ({ velocity, onVel
     };
 
     return (
-        <div className={`flex flex-col items-left gap-3 rounded-xl shadow-xl z-10 transition-opacity duration-500 p-2 ${fadeIn ? 'opacity-100' : 'opacity-0'} ${showControls ? 'bg-gray-900/75' : 'bg-opacity-100'}`}>
-            <div
+        <div className={`controls-shell flex flex-col z-10 transition-all duration-300 ${fadeIn ? 'opacity-100' : 'opacity-0'} ${showControls ? 'controls-shell--open' : ''}`}>
+            <button
+                type="button"
                 onClick={toggleControls}
-                className="flex items-center cursor-pointer"
+                aria-expanded={showControls}
+                aria-label={showControls ? 'Hide background controls' : 'Show background controls'}
+                className="controls-toggle group"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={`w-5 h-5 transform transition-transform duration-300 ease-in-out ${showControls ? 'rotate-180' : ''} text-white`}
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                >
-                    <path
-                        fillRule="evenodd"
-                        d="M5.293 13.293a1 1 0 011.414 0L10 9.586l3.293 3.707a1 1 0 111.414-1.414l-4-4a1 1 0 00-1.414 0l-4 4a1 1 0 010 1.414z"
-                        clipRule="evenodd"
-                    />
-                </svg>
-                <span
-                    className="text-white text-sm sm:text-base transition-all duration-300 ease-in-out"
-                >
-                    {showControls ? 'Hide Controls' : 'Background'}
+                <FontAwesomeIcon
+                    icon={showControls ? faXmark : faSliders}
+                    className="w-3.5 h-3.5 text-white/80 group-hover:text-white transition-colors"
+                />
+                <span className="text-white/80 group-hover:text-white text-xs tracking-wide uppercase transition-colors">
+                    {showControls ? 'Close' : 'Scene'}
                 </span>
-            </div>
-
-            <div className="h-0.5 w-full bg-gray-300 mt-0 mb-0" />
+            </button>
 
             <div
-                className={`transition-all duration-500 ease-in-out ${showControls ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}
+                className={`controls-panel ${showControls ? 'controls-panel--open' : ''}`}
             >
-                <div className="flex-1 mt-4">
-                    <CustomSelect
-                        id="options"
-                        options={[{ value: 'Neurons' }, { value: 'Blizzard' }, { value: 'Lair' }]}
-                        value={option}
-                        onChange={(v) => { setOption(v); onBackgroundChoiceChange(v); }}
-                    />
-                </div>
+                <div className="controls-inner">
+                    <div>
+                        <span className="block text-[10px] uppercase tracking-widest text-white/40 mb-1.5">Background</span>
+                        <CustomSelect
+                            id="options"
+                            options={[{ value: 'Neurons' }, { value: 'Blizzard' }, { value: 'Lair' }]}
+                            value={option}
+                            onChange={(v) => { setOption(v); onBackgroundChoiceChange(v); }}
+                        />
+                    </div>
 
-                <div className="flex-1 mt-4">
-                    <label htmlFor="velocity" className="block text-xs text-white mb-1">
-                        Velocity: {sliderValue.toFixed(1)}
-                    </label>
-                    <input
-                        type="range"
-                        id="velocity"
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        value={sliderValue}
-                        onChange={handleSliderInputChange}
-                        className="w-32 sm:w-40 h-2 bg-gradient-to-r accent-blue-900 from-sky-500 to-sky-700 rounded-full appearance-none cursor-pointer transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 hover:ring-2 hover:ring-green-300 focus:ring-opacity-75"
-                    />
+                    <div>
+                        <div className="flex items-baseline justify-between mb-1.5">
+                            <label htmlFor="velocity" className="text-[10px] uppercase tracking-widest text-white/40">Velocity</label>
+                            <span className="text-xs text-white/80 tabular-nums font-medium">{sliderValue.toFixed(1)}</span>
+                        </div>
+                        <input
+                            type="range"
+                            id="velocity"
+                            min="0"
+                            max="1"
+                            step="0.1"
+                            value={sliderValue}
+                            onChange={handleSliderInputChange}
+                            className="glass-slider w-32 sm:w-40"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

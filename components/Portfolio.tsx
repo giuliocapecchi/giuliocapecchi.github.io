@@ -14,18 +14,20 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isMobileState = false }
     const [fadeIn, setFadeIn] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
-    
-    useEffect(() => { // check for very small screens
+    const [isShortViewport, setIsShortViewport] = useState(false);
+
+    useEffect(() => {
         const checkScreenSize = () => {
             setIsSmallScreen(window.innerWidth < 380);
+            setIsShortViewport(window.innerHeight < 600);
         };
-        
+
         checkScreenSize();
         window.addEventListener('resize', checkScreenSize);
         return () => window.removeEventListener('resize', checkScreenSize);
     }, []);
-    
-    const itemsPerPage = isSmallScreen ? 3 : 4;
+
+    const itemsPerPage = isShortViewport ? 2 : isSmallScreen ? 3 : 4;
 
     useEffect(() => {
         setFadeIn(false);
@@ -61,54 +63,53 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isMobileState = false }
     return (
         <div
             className={`portfolio transition-opacity duration-500 ${fadeIn ? "opacity-100" : "opacity-0"
-            } text-white text-center p-3 rounded-lg max-w-4xl mx-auto ${isMobileState ? 'h-[520px]' : 'h-[560px]'} pb-16 relative flex flex-col items-center pt-16`}
-            style={{
-            backgroundColor: `transparent`,
-            }}
+            } text-white text-center ${isShortViewport ? 'p-3' : 'p-6'} rounded-lg max-w-4xl mx-auto ${isShortViewport ? 'min-h-0' : isMobileState ? 'min-h-[min(500px,calc(100vh-2rem))]' : 'min-h-[min(520px,calc(100vh-2rem))]'} max-h-[calc(100vh-2rem)] flex flex-col`}
         >
-            <h1 className={`${headerSize} mb-24 absolute top-8`}>Recent Projects</h1>
+            <h1 className={`${headerSize} mb-4`}>Recent Projects</h1>
+            <ul className="flex flex-col gap-3 w-full">
             {currentProjects.map((project) => (
             <li
                 key={project.id}
-                className={`mt-6 flex flex-col items-top`}
+                className="w-full flex"
             >
                 <a
                 href={project.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`font-bold hover:text-sky-400/80 transition-colors duration-300 flex items-center justify-center ${textSize}`}
+                className="flex-1 block bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 hover:bg-white/[0.06] hover:border-white/20 transition-all duration-200 text-left"
                 >
-                <FontAwesomeIcon icon={faGithubSquare} size="lg" className="mr-2" />
-                {project.name}
-                </a>
+                <span className={`font-semibold flex items-center gap-2 ${textSize}`}>
+                    <FontAwesomeIcon icon={faGithubSquare} className="text-white/50 shrink-0" />
+                    <span className="hover:text-sky-400 transition-colors duration-200">{project.name}</span>
+                </span>
                 {project.description && (
-                <p className={`mt-2 text-gray-300 text-center ${textSize}`}>
+                <p className={`mt-1 text-white/50 ${textSize === 'text-lg' ? 'text-sm' : 'text-xs'}`}>
                     {project.description}
                 </p>
                 )}
+                </a>
             </li>
             ))}
+            </ul>
             {/* Navigation */}
-            <div className="flex justify-between mt-4 absolute bottom-4 left-8 right-8 items-center z-20">
-            {currentIndex > 0 && (
-                <button
+            <div className="flex justify-between mt-auto pt-4 items-center">
+            <button
                 onClick={handleGoBack}
-                className="text-white hover:text-sky-400 transition-colors duration-300 text-xl"
-                >
+                aria-label="Previous page"
+                className={`text-white hover:text-sky-400 transition-colors duration-300 text-xl ${currentIndex === 0 ? 'invisible' : ''}`}
+            >
                 <FontAwesomeIcon icon={faArrowLeft} />
-                </button>
-            )}
-            <span className="text-white absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20">
+            </button>
+            <span className="text-white/60 text-sm">
                 {currentPage} / {totalPages}
             </span>
-            {currentIndex + itemsPerPage < sortedProjects.length && (
-                <button
+            <button
                 onClick={handleNext}
-                className="text-white hover:text-sky-400 transition-colors duration-300 text-xl ml-auto"
-                >
+                aria-label="Next page"
+                className={`text-white hover:text-sky-400 transition-colors duration-300 text-xl ${currentIndex + itemsPerPage >= sortedProjects.length ? 'invisible' : ''}`}
+            >
                 <FontAwesomeIcon icon={faArrowRight} />
-                </button>
-            )}
+            </button>
             </div>
         </div>
     );
