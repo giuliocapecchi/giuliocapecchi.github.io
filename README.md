@@ -1,6 +1,6 @@
-# Github.io page
+# giulio.cc
 
-Code for my githubp.io age, featuring some [Three.js](https://threejs.org/ "Three.js") custom-made scenes.
+Source of my personal website, live at **[giulio.cc](https://giulio.cc)**, featuring some [Three.js](https://threejs.org/ "Three.js") custom-made scenes.
 
 <p align="center">
     <img src="readme_assets/neurons.gif" alt="Neurons" height="350">
@@ -27,9 +27,6 @@ Code for my githubp.io age, featuring some [Three.js](https://threejs.org/ "Thre
 </p>
 
 
-</div>
-
-
 ## Cloning the repository
 
 To set up the project locally, follow these steps:
@@ -45,7 +42,11 @@ To set up the project locally, follow these steps:
     npm install
     ```
 
-3. Finally, use the following command to run the developement server on localhost:3000: 
+3. Finally, use the following command to run the development server on localhost:3000: 
     ```sh
     npm run dev
     ```
+
+## Deployment
+
+Every push to `main` builds a static export (`out/`) and deploys it to GitHub Pages via `.github/workflows/nextjs.yml`.
