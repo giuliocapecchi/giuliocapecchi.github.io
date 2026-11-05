@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { isMobile } from 'react-device-detect';
+import { fitRenderer } from '@/lib/fitRenderer';
 import { ThreeSceneProp } from '@/types/interfaces';
 
 
@@ -28,7 +29,8 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
         camera.position.z = 10;
 
         const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.domElement.style.display = "block";
+        const stopFit = fitRenderer(currentMount, renderer, camera);
 
         // Append renderer to the DOM
         if (currentMount) {
@@ -73,6 +75,7 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
         ];
 
         // Animation loop
+        let frameId = 0;
         const animate = () => {
             layers.forEach((layer) => {
                 const positions = layer.positions;
@@ -102,7 +105,7 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
 
             controls.update();
             renderer.render(scene, camera);
-            requestAnimationFrame(animate);
+            frameId = requestAnimationFrame(animate);
         };
         animate();
 
@@ -119,6 +122,9 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
 
         // Cleanup on unmount
         return () => {
+          cancelAnimationFrame(frameId);
+          clearInterval(fadeInEffect);
+          stopFit();
             if (currentMount) {
                 currentMount.removeChild(renderer.domElement);
             }
@@ -140,7 +146,7 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
             <div
                 style={{
                     width: '100%',
-                    height: '100vh',
+                    height: '100%',
                     background: 'linear-gradient(180deg, #011627 0%, #018ae6 100%)',
                 }}
             >
@@ -169,7 +175,7 @@ const ThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
             ref={mountRef}
             style={{
                 width: '100%',
-                height: '100vh',
+                height: '100%',
                 opacity,
                 transition: 'opacity 1s ease-in-out', // Smooth transition for fade-in effect
             }}

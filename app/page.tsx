@@ -52,9 +52,9 @@ const Home: React.FC = () => {
     }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden">
+        <div className="relative w-full h-dvh overflow-hidden">
             {/* Background Scene */}
-            <div className="three-scene-container h-screen w-full">
+            <div className="three-scene-container">
                 <Suspense fallback={<div className="w-full h-full bg-black" />}>
                     {backgroundChoice === "Blizzard" ? (
                         <BlizzardThreeScene velocity={velocity} />
@@ -68,7 +68,7 @@ const Home: React.FC = () => {
 
             {/* Main Content */}
             <div className={`relative z-10 flex flex-col justify-center items-center p-3 w-full h-full ${isMobileState ? 'pt-12' : ''}`}>
-                <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 w-full max-w-7xl max-h-[calc(100vh-2rem)]">
+                <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 w-full max-w-7xl max-h-[calc(100dvh-2rem)]">
                     {/* Left Section */}
                     <div
                         className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} flex-1 ${showPortfolio ? 'hidden' : 'block'} sm:w-full md:w-1/2 bg-white/[0.02] backdrop-blur-md border border-white/15 shadow-sm rounded-3xl glassmorphism-panel relative overflow-y-auto`}
@@ -118,7 +118,9 @@ const Home: React.FC = () => {
                     {showPortfolio ? 'About me' : 'Portfolio'}
                 </button>
             </div>
-            {/* Page View Counter */}
+            <div className="rotate-notice" role="alert">
+                <p>Please rotate your phone to portrait mode.</p>
+            </div>
         </div>
     );
 };

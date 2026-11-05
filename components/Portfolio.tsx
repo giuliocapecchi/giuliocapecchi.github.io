@@ -63,7 +63,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isMobileState = false }
     return (
         <div
             className={`portfolio transition-opacity duration-500 ${fadeIn ? "opacity-100" : "opacity-0"
-            } text-white text-center ${isShortViewport ? 'p-3' : 'p-6'} rounded-lg max-w-4xl mx-auto ${isShortViewport ? 'min-h-0' : isMobileState ? 'min-h-[min(500px,calc(100vh-2rem))]' : 'min-h-[min(520px,calc(100vh-2rem))]'} max-h-[calc(100vh-2rem)] flex flex-col`}
+            } text-white text-center ${isShortViewport ? 'p-3' : 'p-6'} rounded-lg max-w-4xl mx-auto ${isShortViewport ? 'min-h-0' : isMobileState ? 'min-h-[min(500px,calc(100dvh-2rem))]' : 'min-h-[min(520px,calc(100dvh-2rem))]'} max-h-[calc(100dvh-2rem)] flex flex-col`}
         >
             <h1 className={`${headerSize} mb-4`}>Recent Projects</h1>
             <ul className="flex flex-col gap-3 w-full">

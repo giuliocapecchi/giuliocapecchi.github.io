@@ -79,13 +79,36 @@ body {
   overflow: hidden;
 }
 
+/* Fixed and sized to the largest viewport, so the scene still covers the
+   screen when mobile browser bars collapse. */
 .three-scene-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  z-index: -1;
+  height: 100vh;
+  height: 100lvh;
+  z-index: 0;
+}
+
+/* Phones are portrait-only: cover the page when held sideways. */
+.rotate-notice {
+  display: none;
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
+  .rotate-notice {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: #000;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+  }
 }
 
 /* Loader css */

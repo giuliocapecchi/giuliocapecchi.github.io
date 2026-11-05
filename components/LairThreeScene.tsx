@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Terrain as ThreeTerrain } from '../lib/three-terrain/build/THREE.Terrain.Module.mjs';
 import { isMobile } from 'react-device-detect';
+import { fitRenderer } from '@/lib/fitRenderer';
 import { ThreeSceneProp } from '@/types/interfaces';
 
 const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
@@ -28,7 +29,8 @@ const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
     const camera = new THREE.PerspectiveCamera(fow, window.innerWidth / window.innerHeight, 0.1, maxDistance);
     
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.style.display = "block";
+    const stopFit = fitRenderer(currentMount, renderer, camera);
 
     // Append renderer to the DOM
     if (currentMount) {
@@ -100,6 +102,8 @@ const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
     directionalLight.position.set(10, 20, 10).normalize();
     scene.add(directionalLight);
 
+    let frameId = 0;
+
     const animate = () => {
       terrainMesh.position.z += velocityRef.current * 4;
       mirroredTerrainMesh.position.z += velocityRef.current * 4;
@@ -142,7 +146,7 @@ const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
       }
 
       renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+      frameId = requestAnimationFrame(animate);
     };
 
     animate();
@@ -160,9 +164,13 @@ const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
 
     // Cleanup on unmount
     return () => {
+      cancelAnimationFrame(frameId);
+      clearInterval(fadeInEffect);
+      stopFit();
       if (currentMount) {
         currentMount.removeChild(renderer.domElement);
       }
+      renderer.dispose();
     };
     } catch {
       setWebGLUnsupported(true);
@@ -174,7 +182,7 @@ const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
       <div
         style={{
           width: '100%',
-          height: '100vh',
+          height: '100%',
           background: '#0a0a12',
         }}
       >
@@ -203,7 +211,7 @@ const Lair: React.FC<ThreeSceneProp> = ({ velocity }) => {
       ref={mountRef}
       style={{
         width: '100%',
-        height: '100vh',
+        height: '100%',
         opacity,
         transition: 'opacity 1s ease-in-out', // Smooth transition for fade-in effect
       }}
