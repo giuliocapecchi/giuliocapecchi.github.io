@@ -52,9 +52,9 @@ const Home: React.FC = () => {
     }
 
     return (
-        <div className="relative w-full h-screen overflow-hidden">
+        <div className="relative w-full h-dvh">
             {/* Background Scene */}
-            <div className="three-scene-container h-screen w-full">
+            <div className="three-scene-container">
                 <Suspense fallback={<div className="w-full h-full bg-black" />}>
                     {backgroundChoice === "Blizzard" ? (
                         <BlizzardThreeScene velocity={velocity} />
@@ -67,8 +67,8 @@ const Home: React.FC = () => {
             </div>
 
             {/* Main Content */}
-            <div className={`relative z-10 flex flex-col justify-center items-center p-3 w-full h-full ${isMobileState ? 'pt-12' : ''}`}>
-                <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 w-full max-w-7xl max-h-[calc(100vh-2rem)]">
+            <div className={`relative z-10 flex flex-col justify-center items-center p-3 w-full h-full safe-area-padding ${isMobileState ? 'safe-area-padding--mobile' : ''}`}>
+                <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 w-full max-w-7xl max-h-[calc(100dvh-2rem)]">
                     {/* Left Section */}
                     <div
                         className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} flex-1 ${showPortfolio ? 'hidden' : 'block'} sm:w-full md:w-1/2 bg-white/[0.02] backdrop-blur-md border border-white/15 shadow-sm rounded-3xl glassmorphism-panel relative overflow-y-auto`}
@@ -98,7 +98,7 @@ const Home: React.FC = () => {
 
                 {/* Background Controls */}
                 <div
-                    className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} fixed bottom-5 left-4 z-20`}
+                    className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} fixed safe-bottom left-4 z-20`}
                 >
                     <BackgroundControls
                         velocity={velocity}
@@ -110,7 +110,7 @@ const Home: React.FC = () => {
 
                 {/* Toggle Button for Mobile */}
                 <button
-                    className="block md:hidden fixed bottom-5 right-5 z-20 glass-button"
+                    className="block md:hidden fixed safe-bottom right-5 z-20 glass-button"
                     onClick={() => setShowPortfolio(!showPortfolio)}
                     aria-pressed={showPortfolio}
                     aria-label={showPortfolio ? 'Show about' : 'Show portfolio'}
@@ -118,7 +118,9 @@ const Home: React.FC = () => {
                     {showPortfolio ? 'About me' : 'Portfolio'}
                 </button>
             </div>
-            {/* Page View Counter */}
+            <div className="rotate-notice" role="alert">
+                <p>Please rotate your phone to portrait mode.</p>
+            </div>
         </div>
     );
 };

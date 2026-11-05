@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { isMobile } from "react-device-detect";
+import { fitRenderer } from "@/lib/fitRenderer";
 import { ThreeSceneProp } from "@/types/interfaces";
 
 const NNThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
@@ -30,7 +31,8 @@ const NNThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
     camera.position.z = 600;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.style.display = "block";
+    const stopFit = fitRenderer(currentMount, renderer, camera);
     renderer.setPixelRatio(window.devicePixelRatio);
 
     // Append renderer to the DOM
@@ -94,6 +96,8 @@ const NNThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
       }
     );
 
+    let frameId = 0;
+
     const animate = () => {
       const newPositions: number[] = [];
       connectionsPerParticle.fill(0);
@@ -147,7 +151,7 @@ const NNThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
 
       controls.update();
       renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+      frameId = requestAnimationFrame(animate);
     };
 
     animate();
@@ -165,9 +169,13 @@ const NNThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
 
     // Cleanup on unmount
     return () => {
+      cancelAnimationFrame(frameId);
+      clearInterval(fadeInEffect);
+      stopFit();
       if (currentMount) {
         currentMount.removeChild(renderer.domElement);
       }
+      renderer.dispose();
     };
     } catch {
       setWebGLUnsupported(true);
@@ -179,7 +187,7 @@ const NNThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
       <div
         style={{
           width: '100%',
-          height: '100vh',
+          height: '100%',
           background: '#000011',
         }}
       >
@@ -208,7 +216,7 @@ const NNThreeScene: React.FC<ThreeSceneProp> = ({ velocity }) => {
       ref={mountRef}
       style={{
         width: '100%',
-        height: '100vh',
+        height: '100%',
         opacity,
         transition: 'opacity 1s ease-in-out', // Smooth transition for fade-in effect
       }}

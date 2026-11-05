@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -26,6 +26,14 @@ export const metadata: Metadata = {
     description: "Giulio Capecchi's personal page",
     images: ["/pf_pic.jpg"],
   },
+};
+
+// Draw under the iOS status bar and Safari toolbar; content uses safe-area insets.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({

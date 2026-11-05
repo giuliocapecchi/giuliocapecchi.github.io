@@ -11,7 +11,6 @@ interface PortfolioProps {
 
 
 const Portfolio: React.FC<PortfolioProps> = ({ projects, isMobileState = false }) => {
-    const [fadeIn, setFadeIn] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [isShortViewport, setIsShortViewport] = useState(false);
@@ -28,12 +27,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isMobileState = false }
     }, []);
 
     const itemsPerPage = isShortViewport ? 2 : isSmallScreen ? 3 : 4;
-
-    useEffect(() => {
-        setFadeIn(false);
-        const timeout = setTimeout(() => setFadeIn(true), 100);
-        return () => clearTimeout(timeout);
-    }, [currentIndex]);
 
     // remove README project from the list and sort by date
     const filteredProjects = projects.filter((project) => project.name !== 'giuliocapecchi');
@@ -62,8 +55,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isMobileState = false }
 
     return (
         <div
-            className={`portfolio transition-opacity duration-500 ${fadeIn ? "opacity-100" : "opacity-0"
-            } text-white text-center ${isShortViewport ? 'p-3' : 'p-6'} rounded-lg max-w-4xl mx-auto ${isShortViewport ? 'min-h-0' : isMobileState ? 'min-h-[min(500px,calc(100vh-2rem))]' : 'min-h-[min(520px,calc(100vh-2rem))]'} max-h-[calc(100vh-2rem)] flex flex-col`}
+            className={`portfolio text-white text-center ${isShortViewport ? 'p-3' : 'p-6'} rounded-lg max-w-4xl mx-auto ${isShortViewport ? 'min-h-0' : isMobileState ? 'min-h-[min(500px,calc(100dvh-2rem))]' : 'min-h-[min(520px,calc(100dvh-2rem))]'} max-h-[calc(100dvh-2rem)] flex flex-col`}
         >
             <h1 className={`${headerSize} mb-4`}>Recent Projects</h1>
             <ul className="flex flex-col gap-3 w-full">
