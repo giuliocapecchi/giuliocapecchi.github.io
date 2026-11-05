@@ -52,7 +52,7 @@ const Home: React.FC = () => {
     }
 
     return (
-        <div className="relative w-full h-dvh overflow-hidden">
+        <div className="relative w-full h-dvh">
             {/* Background Scene */}
             <div className="three-scene-container">
                 <Suspense fallback={<div className="w-full h-full bg-black" />}>
@@ -67,7 +67,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Main Content */}
-            <div className={`relative z-10 flex flex-col justify-center items-center p-3 w-full h-full ${isMobileState ? 'pt-12' : ''}`}>
+            <div className={`relative z-10 flex flex-col justify-center items-center p-3 w-full h-full safe-area-padding ${isMobileState ? 'safe-area-padding--mobile' : ''}`}>
                 <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 w-full max-w-7xl max-h-[calc(100dvh-2rem)]">
                     {/* Left Section */}
                     <div
@@ -98,7 +98,7 @@ const Home: React.FC = () => {
 
                 {/* Background Controls */}
                 <div
-                    className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} fixed bottom-5 left-4 z-20`}
+                    className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} fixed safe-bottom left-4 z-20`}
                 >
                     <BackgroundControls
                         velocity={velocity}
@@ -110,7 +110,7 @@ const Home: React.FC = () => {
 
                 {/* Toggle Button for Mobile */}
                 <button
-                    className="block md:hidden fixed bottom-5 right-5 z-20 glass-button"
+                    className="block md:hidden fixed safe-bottom right-5 z-20 glass-button"
                     onClick={() => setShowPortfolio(!showPortfolio)}
                     aria-pressed={showPortfolio}
                     aria-label={showPortfolio ? 'Show about' : 'Show portfolio'}
