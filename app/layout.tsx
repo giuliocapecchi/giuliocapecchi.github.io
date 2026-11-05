@@ -14,8 +14,18 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://giulio.cc"),
   title: "Giulio Capecchi",
   description: "Giulio Capecchi's personal page",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Giulio Capecchi",
+    title: "Giulio Capecchi",
+    description: "Giulio Capecchi's personal page",
+    images: ["/pf_pic.jpg"],
+  },
 };
 
 export default function RootLayout({
