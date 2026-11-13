@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faXTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faFileLines, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 
 const LeftSection: React.FC = () => {
@@ -91,6 +91,16 @@ const LeftSection: React.FC = () => {
                 className="text-white no-underline text-lg transition-colors duration-300 hover:text-green-400"
               >
                 <FontAwesomeIcon icon={faEnvelope} size="2x" />
+              </a>
+            </li>
+            <li className="mb-2 inline-block">
+              <a
+                href="/cv/"
+                title="CV"
+                aria-label="CV"
+                className="text-white no-underline text-lg transition-colors duration-300 hover:text-purple-300"
+              >
+                <FontAwesomeIcon icon={faFileLines} size="2x" />
               </a>
             </li>
           </ul>
