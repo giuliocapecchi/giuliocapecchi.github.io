@@ -1,27 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faXTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faLinkedin, faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faFileLines, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
-
-// Business card with "CV" cut out, drawn to match the Font Awesome icons next to it.
-const CvCardIcon: React.FC = () => (
-  <svg className="svg-inline--fa fa-2x" viewBox="0 0 576 512" aria-hidden="true">
-    <defs>
-      <mask id="cv-card-cutout">
-        <rect width="576" height="512" fill="#fff" />
-        <g fill="none" stroke="#000" strokeWidth="34" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M150 204 A68 68 0 1 0 150 308" />
-          <path d="M184 190 L224 322 L264 190" />
-        </g>
-        <rect x="300" y="190" width="210" height="34" rx="17" fill="#000" />
-        <rect x="300" y="250" width="210" height="34" rx="17" fill="#000" />
-        <rect x="300" y="310" width="140" height="34" rx="17" fill="#000" />
-      </mask>
-    </defs>
-    <rect x="0" y="32" width="576" height="448" rx="64" fill="currentColor" mask="url(#cv-card-cutout)" />
-  </svg>
-);
 
 const LeftSection: React.FC = () => {
   const [fadeIn, setFadeIn] = useState(true);
@@ -96,16 +77,6 @@ const LeftSection: React.FC = () => {
             </li>
             <li className="mb-2 inline-block">
               <a
-                href="https://www.instagram.com/giulio_capecchi/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white no-underline text-lg transition-colors duration-300 hover:text-pink-400"
-              >
-                <FontAwesomeIcon icon={faInstagram} size="2x" />
-              </a>
-            </li>
-            <li className="mb-2 inline-block">
-              <a
                 href="mailto:giuliocapecchi2000@gmail.com"
                 className="text-white no-underline text-lg transition-colors duration-300 hover:text-green-400"
               >
@@ -119,7 +90,7 @@ const LeftSection: React.FC = () => {
                 aria-label="CV"
                 className="text-white no-underline text-lg transition-colors duration-300 hover:text-purple-300"
               >
-                <CvCardIcon />
+                <FontAwesomeIcon icon={faFileLines} size="2x" />
               </a>
             </li>
           </ul>
