@@ -7,17 +7,23 @@ const geistSans = localFont({
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://giulio.cc"),
   title: "Giulio Capecchi",
-  description: "Computer engineer and ML engineer at Tuboolar. Explore my recent projects and get in touch.",
+  description: "Giulio Capecchi's personal page",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
     siteName: "Giulio Capecchi",
     title: "Giulio Capecchi",
-    description: "Computer engineer and ML engineer at Tuboolar. Explore my recent projects and get in touch.",
+    description: "Giulio Capecchi's personal page",
     images: ["/pf_pic.jpg"],
   },
 };
@@ -36,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -45,9 +51,13 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Giulio Capecchi's page" />
         <link rel="manifest" href="/site.webmanifest" />
         
+        {/* performance optimizations */}
+        <link rel="preload" href="/pf_pic.jpg" as="image" type="image/jpeg" />
+        <link rel="preload" href="/fonts/GeistVF.woff" as="font" type="font/woff" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/GeistMonoVF.woff" as="font" type="font/woff" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//api.github.com" />
       </head>
-      <body className={`${geistSans.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>

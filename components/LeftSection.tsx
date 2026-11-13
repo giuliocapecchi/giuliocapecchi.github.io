@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faFileLines, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 
 const LeftSection: React.FC = () => {
-  return (
-    <div className="left-section flex flex-col text-center text-white items-center justify-center py-10 px-6 rounded-lg w-full min-h-full">
+  const [fadeIn, setFadeIn] = useState(true);
+
+  useEffect(() => {
+    setFadeIn(false);
+    const timeout = setTimeout(() => setFadeIn(true), 100);
+    return () => clearTimeout(timeout);
+  }, []);
+
+    return (
+    <div
+      className={`left-section transition-opacity duration-500 ${
+        fadeIn ? 'opacity-100' : 'opacity-0'
+      } flex flex-col text-center text-white items-center justify-center pt-16 pb-8 px-8 rounded-lg max-w-4xl mx-auto h-full`}
+    >
       <div className="flex-1 flex flex-col items-center justify-center w-full">
         <div className="profile-photo-container w-36 h-36 mb-5 overflow-hidden flex justify-center items-center">
           <Image
-            src="/pf_pic.webp"
-            alt="Giulio Capecchi"
+            src="/pf_pic.jpg"
+            alt="Profile picture"
             className="profile-photo object-cover rounded-lg"
             width={150}
             height={150}
@@ -19,7 +31,7 @@ const LeftSection: React.FC = () => {
           />
         </div>
         <div className="links">
-          <h1 className="text-3xl font-bold tracking-tight mb-4">Giulio Capecchi</h1>
+          <h2 className="text-3xl font-bold tracking-tight mb-4">Giulio Capecchi</h2>
           <div className="text-lg mb-5 space-y-2">
             <div className="flex flex-col text-blue-300">
               <div className="flex items-center justify-center gap-2">
@@ -36,7 +48,6 @@ const LeftSection: React.FC = () => {
             <li className="mb-2 inline-block">
               <a
                 href="https://github.com/giuliocapecchi"
-                aria-label="GitHub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="no-underline text-lg transition-colors duration-300 hover:text-white"
@@ -47,7 +58,6 @@ const LeftSection: React.FC = () => {
             <li className="mb-2 inline-block">
               <a
                 href="https://www.linkedin.com/in/giulio-capecchi/"
-                aria-label="LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="no-underline text-lg transition-colors duration-300 hover:text-blue-400"
@@ -58,7 +68,6 @@ const LeftSection: React.FC = () => {
             <li className="mb-2 inline-block">
               <a
                 href="https://x.com/giulio_capecchi"
-                aria-label="X"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white no-underline text-lg transition-colors duration-300 hover:text-white"
@@ -69,7 +78,6 @@ const LeftSection: React.FC = () => {
             <li className="mb-2 inline-block">
               <a
                 href="mailto:giuliocapecchi2000@gmail.com"
-                aria-label="Email Giulio"
                 className="text-white no-underline text-lg transition-colors duration-300 hover:text-green-400"
               >
                 <FontAwesomeIcon icon={faEnvelope} size="2x" />
