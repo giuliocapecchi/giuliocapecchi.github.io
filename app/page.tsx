@@ -1,128 +1,64 @@
 "use client";
 
-import React, { useState, useEffect, Suspense, lazy } from "react";
-import LeftSection from "../components/LeftSection";
-import Portfolio from "../components/Portfolio";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import LeftSection from "@/components/LeftSection";
+import Portfolio from "@/components/Portfolio";
 import BackgroundControls from "@/components/BackgroundControls";
-import Loading from "../components/Loading";
-import { isMobile } from 'react-device-detect';
 
-const BlizzardThreeScene = lazy(() => import("../components/BlizzardThreeScene"));
-const NNThreeScene = lazy(() => import("@/components/NNThreeScene"));
-const LairThreeScene = lazy(() => import("@/components/LairThreeScene"));
+const Lair = dynamic(() => import("@/components/LairThreeScene"), { ssr: false });
+const Neurons = dynamic(() => import("@/components/NNThreeScene"), { ssr: false });
+const Blizzard = dynamic(() => import("@/components/BlizzardThreeScene"), { ssr: false });
 
-const Home: React.FC = () => {
-    const [loading, setLoading] = useState(true);
-    const [fadeOut, setFadeOut] = useState(false);
-    const [fadeIn, setFadeIn] = useState(false);
-    const [projects, setProjects] = useState([]);
+export default function Home() {
     const [showPortfolio, setShowPortfolio] = useState(false);
     const [velocity, setVelocity] = useState(0.3);
-    const [backgroundChoice, setBackgroundChoice] = useState("Lair"); // Default background
-    const [isMobileState, setIsMobileState] = useState(false); // Client-side mobile detection
+    // Keep the initial HTML independent of WebGL and browser preferences.
+    const [backgroundChoice, setBackgroundChoice] = useState("Still");
 
     useEffect(() => {
-        setIsMobileState(isMobile);
-        
-        // Fetch projects data
-        const fetchProjects = async () => {
-            try {
-                const response = await fetch(
-                    "https://api.github.com/users/giuliocapecchi/repos"
-                );
-                const data = await response.json();
-                setProjects(data);
-            } catch (error) {
-                console.error("Error fetching GitHub repositories:", error);
-            } finally {
-                // Faster loading transition
-                setTimeout(() => setFadeOut(true), 300); 
-                setTimeout(() => {
-                    setLoading(false);
-                    setFadeIn(true);
-                }, 600);
-            }
+        const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+        if (!motion.matches && !connection?.saveData) setBackgroundChoice("Lair");
+        const onMotionChange = () => {
+            if (motion.matches) setBackgroundChoice("Still");
         };
-
-        fetchProjects();
+        motion.addEventListener("change", onMotionChange);
+        return () => motion.removeEventListener("change", onMotionChange);
     }, []);
-
-    if (loading) {
-        return <Loading fadeOut={fadeOut} />;
-    }
 
     return (
         <div className="relative w-full h-dvh">
-            {/* Background Scene */}
-            <div className="three-scene-container">
-                <Suspense fallback={<div className="w-full h-full bg-black" />}>
-                    {backgroundChoice === "Blizzard" ? (
-                        <BlizzardThreeScene velocity={velocity} />
-                    ) : backgroundChoice === "Neurons" ? (
-                        <NNThreeScene velocity={velocity} />
-                    ) : (
-                    <LairThreeScene velocity={velocity} />
-                    )}
-                </Suspense>
+            <a href="#main-content" className="skip-link">Skip to content</a>
+            <div className="three-scene-container" aria-hidden="true">
+                {backgroundChoice === "Lair" && <Lair velocity={velocity} />}
+                {backgroundChoice === "Neurons" && <Neurons velocity={velocity} />}
+                {backgroundChoice === "Blizzard" && <Blizzard velocity={velocity} />}
             </div>
 
-            {/* Main Content */}
-            <div className={`relative z-10 flex flex-col justify-center items-center p-3 w-full h-full safe-area-padding ${isMobileState ? 'safe-area-padding--mobile' : ''}`}>
-                <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 w-full max-w-7xl max-h-[calc(100dvh-2rem)]">
-                    {/* Left Section */}
-                    <div
-                        className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} flex-1 ${showPortfolio ? 'hidden' : 'block'} sm:w-full md:w-1/2 bg-white/[0.02] backdrop-blur-md border border-white/15 shadow-sm rounded-3xl glassmorphism-panel relative overflow-y-auto`}
-                    >
-                        {/* glass effect */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/[0.01] rounded-3xl pointer-events-none"></div>
-                        {/* top reflection */}
-                        <div className="absolute inset-[1px] bg-gradient-to-b from-white/10 via-transparent to-transparent rounded-[calc(1.5rem-1px)] pointer-events-none opacity-30"></div>
-                        <div className="relative z-10">
-                            <LeftSection />
-                        </div>
-                    </div>
-
-                    {/* Portfolio Section - Visibility based on showPortfolio */}
-                    <div
-                        className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} flex-1 ${showPortfolio ? 'block' : 'hidden'} md:block sm:w-full md:w-1/2 bg-white/[0.02] backdrop-blur-md border border-white/15 shadow-sm rounded-3xl glassmorphism-panel relative overflow-y-auto`}
-                    >
-                        {/* glass effect */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/[0.01] rounded-3xl pointer-events-none"></div>
-                        {/* top reflection */}
-                        <div className="absolute inset-[1px] bg-gradient-to-b from-white/10 via-transparent to-transparent rounded-[calc(1.5rem-1px)] pointer-events-none opacity-30"></div>
-                        <div className="relative z-10">
-                            <Portfolio projects={projects} isMobileState={isMobileState} />
-                        </div>
-                    </div>
+            <main id="main-content" className="relative z-10 flex flex-col justify-center items-center px-3 w-full h-full safe-area-padding">
+                <div className="content-panels flex flex-col md:flex-row items-stretch gap-6 w-full max-w-7xl min-h-0">
+                    <section aria-label="About me" className={`content-panel ${showPortfolio ? 'hidden' : 'flex'} md:flex`}>
+                        <LeftSection />
+                    </section>
+                    <section id="projects" aria-labelledby="projects-heading" className={`content-panel ${showPortfolio ? 'flex' : 'hidden'} md:flex`}>
+                        <Portfolio />
+                    </section>
                 </div>
+            </main>
 
-                {/* Background Controls */}
-                <div
-                    className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'} fixed safe-bottom left-4 z-20`}
-                >
-                    <BackgroundControls
-                        velocity={velocity}
-                        onVelocityChange={setVelocity}
-                        backgroundChoice={backgroundChoice}
-                        onBackgroundChoiceChange={setBackgroundChoice} // Callback to change the background
-                    />
-                </div>
-
-                {/* Toggle Button for Mobile */}
-                <button
-                    className="block md:hidden fixed safe-bottom right-5 z-20 glass-button"
-                    onClick={() => setShowPortfolio(!showPortfolio)}
-                    aria-pressed={showPortfolio}
-                    aria-label={showPortfolio ? 'Show about' : 'Show portfolio'}
-                >
-                    {showPortfolio ? 'About me' : 'Portfolio'}
-                </button>
+            <div className="fixed safe-bottom left-4 z-20">
+                <BackgroundControls velocity={velocity} onVelocityChange={setVelocity}
+                    backgroundChoice={backgroundChoice} onBackgroundChoiceChange={setBackgroundChoice} />
             </div>
+            <button className="md:hidden fixed safe-bottom right-5 z-20 glass-button"
+                onClick={() => setShowPortfolio(!showPortfolio)} aria-pressed={showPortfolio}
+                aria-controls="projects" aria-label={showPortfolio ? 'Show about' : 'Show portfolio'}>
+                {showPortfolio ? 'About me' : 'Portfolio'}
+            </button>
             <div className="rotate-notice" role="alert">
                 <p>Please rotate your phone to portrait mode.</p>
             </div>
         </div>
     );
-};
-
-export default Home;
+}
